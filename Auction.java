@@ -101,6 +101,10 @@ public class Auction
         }
     }
 
+    /**
+     * Metodo para imprimir por pantalla detalles sobre los lotes en subasta.
+     * Muestra informacion en funcion de si existe puja o no por dicho lote.
+     */
     public void close(){
         for (Lot lote : lots){
             Bid mayorPuja = lote.getHighestBid();
@@ -112,5 +116,18 @@ public class Auction
                 System.out.println(detallesOriginales + " Nadie ha pujado por esste lote todavia");
             }
         }
+    }
+
+    /**
+     * Devuelve un ArrayList de los objetos Lot que no tengan una puja actualmente.
+     */
+    public ArrayList<Lot> getUnsold(){
+        ArrayList<Lot> lotesNoVendidos = new ArrayList<Lot>();
+        for (Lot lote : lots){
+            if(lote.getHighestBid() == null){
+                lotesNoVendidos.add(lote);
+            }
+        }
+        return lotesNoVendidos;
     }
 }
