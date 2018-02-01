@@ -43,7 +43,7 @@ public class Auction
             System.out.println(lot.toString());
         }
     }
-    
+
     /**
      * Make a bid for a lot.
      * A message is printed indicating whether the bid is
@@ -60,14 +60,14 @@ public class Auction
             boolean successful = selectedLot.bidFor(new Bid(bidder,value));
             if(successful) {
                 System.out.println("The bid for lot number " +
-                                   lotNumber + " was successful.");
+                    lotNumber + " was successful.");
             }
             else {
                 // Report which bid is higher.
                 Bid highestBid = selectedLot.getHighestBid();
                 System.out.println("Lot number: " + lotNumber +
-                                   " already has a bid of: " +
-                                   highestBid.getValue());
+                    " already has a bid of: " +
+                    highestBid.getValue());
             }
         }
     }
@@ -86,9 +86,9 @@ public class Auction
             // right lot.
             if(selectedLot.getNumber() != lotNumber) {
                 System.out.println("Internal error: Lot number " +
-                                   selectedLot.getNumber() +
-                                   " was returned instead of " +
-                                   lotNumber);
+                    selectedLot.getNumber() +
+                    " was returned instead of " +
+                    lotNumber);
                 // Don't return an invalid lot.
                 selectedLot = null;
             }
@@ -96,8 +96,21 @@ public class Auction
         }
         else {
             System.out.println("Lot number: " + lotNumber +
-                               " does not exist.");
+                " does not exist.");
             return null;
+        }
+    }
+
+    public void close(){
+        for (Lot lote : lots){
+            Bid mayorPuja = lote.getHighestBid();
+            String detallesOriginales = lote.toString();
+            if (mayorPuja != null){
+                System.out.println(detallesOriginales + " Persona que lidera la puja: " + lote.getHighestBid().getBidder().getName());
+            }
+            else{
+                System.out.println(detallesOriginales + " Nadie ha pujado por esste lote todavia");
+            }
         }
     }
 }
