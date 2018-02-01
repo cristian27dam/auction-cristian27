@@ -79,26 +79,25 @@ public class Auction
      */
     public Lot getLot(int lotNumber)
     {
-        if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
-            // The number seems to be reasonable.
-            Lot selectedLot = lots.get(lotNumber - 1);
-            // Include a confidence check to be sure we have the
-            // right lot.
-            if(selectedLot.getNumber() != lotNumber) {
-                System.out.println("Internal error: Lot number " +
-                    selectedLot.getNumber() +
-                    " was returned instead of " +
-                    lotNumber);
-                // Don't return an invalid lot.
-                selectedLot = null;
+        int i = 0;
+        boolean encontrado = false;
+        Lot loteADevolver = null;
+
+        if ((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
+            while (i < lots.size() && !encontrado){
+                Lot loteActual = lots.get(i);
+                if (loteActual.getNumber() == lotNumber){
+                    encontrado = true;
+                    loteADevolver = loteActual;
+                }
+                i++;
             }
-            return selectedLot;
         }
         else {
             System.out.println("Lot number: " + lotNumber +
                 " does not exist.");
-            return null;
         }
+        return loteADevolver;
     }
 
     /**
@@ -113,7 +112,7 @@ public class Auction
                 System.out.println(detallesOriginales + " Persona que lidera la puja: " + lote.getHighestBid().getBidder().getName());
             }
             else{
-                System.out.println(detallesOriginales + " Nadie ha pujado por esste lote todavia");
+                System.out.println(detallesOriginales + " Nadie ha pujado por este lote todavia");
             }
         }
     }
